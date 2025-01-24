@@ -1,20 +1,22 @@
 package com.melogtm.tinyurl.domain;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import java.util.Date;
 
 @Table(name = "url")
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
-@Getter
-@Setter
 public class Url {
+    public Url() {
+    }
+
+    public Url(Integer id, String shortUrl, String longUrl, Date createdAt, Integer count) {
+        this.id = id;
+        this.shortUrl = shortUrl;
+        this.longUrl = longUrl;
+        this.createdAt = createdAt;
+        this.count = count;
+    }
 
     @Id
     @GeneratedValue
@@ -31,4 +33,37 @@ public class Url {
 
     @Column (name = "count")
     private Integer count;
+
+
+    public Integer getId() {
+        return id;
+    }
+
+    public String getShortUrl() {
+        return shortUrl;
+    }
+
+    public void setShortUrl(String shortUrl) {
+        this.shortUrl = shortUrl;
+    }
+
+    public String getLongUrl() {
+        return longUrl;
+    }
+
+    public void setLongUrl(String longUrl) {
+        this.longUrl = longUrl;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Integer getCount() {
+        return count;
+    }
 }
