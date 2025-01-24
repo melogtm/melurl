@@ -1,0 +1,7 @@
+CREATE TABLE url (
+    id SERIAL PRIMARY KEY,
+    shorten_url TEXT NOT NULL,
+    original_url TEXT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    count INTEGER DEFAULT 0
+)
