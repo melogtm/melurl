@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Date;
-import java.util.UUID;
 
 @Table(name = "url")
 @Entity
@@ -19,7 +18,7 @@ public class Url {
 
     @Id
     @GeneratedValue
-    private UUID id;
+    private Integer id;
 
     @Column(name = "shorten_url")
     private String shortUrl;
