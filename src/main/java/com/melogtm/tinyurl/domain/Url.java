@@ -1,6 +1,8 @@
 package com.melogtm.tinyurl.domain;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 import java.util.Date;
 
@@ -8,14 +10,6 @@ import java.util.Date;
 @Entity
 public class Url {
     public Url() {
-    }
-
-    public Url(Integer id, String shortUrl, String longUrl, Date createdAt, Integer count) {
-        this.id = id;
-        this.shortUrl = shortUrl;
-        this.longUrl = longUrl;
-        this.createdAt = createdAt;
-        this.count = count;
     }
 
     @Id

@@ -2,6 +2,7 @@ package com.melogtm.tinyurl.service;
 
 import com.melogtm.tinyurl.domain.Url;
 import com.melogtm.tinyurl.domain.UrlRequestDTO;
+import com.melogtm.tinyurl.exceptions.UrlAlreadyExistsException;
 import com.melogtm.tinyurl.repository.UrlRepo;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +17,17 @@ public class UrlService {
         this.repository = repository;
     }
 
-    public Url shortenUrl(UrlRequestDTO urlRequestDTO) {
+    public String getOriginalUrl(String shortUrl) {
+        return repository.findOriginalUrl(shortUrl);
+    }
+
+    public Url shortenUrl(UrlRequestDTO urlRequestDTO) throws UrlAlreadyExistsException {
+
+        String check_url = repository.findOriginalUrl(urlRequestDTO.shortUrl());
+        if (check_url != null) {
+            throw new UrlAlreadyExistsException("Short URL already exists");
+        }
+
         Url new_url = new Url();
 
         new_url.setLongUrl(urlRequestDTO.longUrl());
@@ -26,9 +37,5 @@ public class UrlService {
         repository.save(new_url);
 
         return new_url;
-    }
-
-    public String getOriginalUrl(String shortUrl) {
-        return repository.findOriginalUrl(shortUrl);
     }
 }
