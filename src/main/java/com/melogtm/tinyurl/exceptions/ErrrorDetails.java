@@ -1,11 +1,11 @@
 package com.melogtm.tinyurl.exceptions;
 
-public class ErrorTemplate {
+public class ErrrorDetails {
 
     private String message;
     private String details;
 
-    public ErrorTemplate(String message, String details) {
+    public ErrrorDetails(String message, String details) {
         super();
         this.message = message;
         this.details = details;

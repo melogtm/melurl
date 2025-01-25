@@ -4,6 +4,7 @@ import com.melogtm.tinyurl.domain.Url;
 import com.melogtm.tinyurl.domain.UrlRequestDTO;
 import com.melogtm.tinyurl.domain.UrlResponseDTO;
 import com.melogtm.tinyurl.exceptions.UrlAlreadyExistsException;
+import com.melogtm.tinyurl.exceptions.UrlNotFoundException;
 import com.melogtm.tinyurl.service.UrlService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -22,13 +23,16 @@ public class UrlController {
     }
 
     @PostMapping("/shorten")
-    public ResponseEntity<Url> shortenUrl(@Valid @ModelAttribute UrlRequestDTO urlRequestDTO) throws UrlAlreadyExistsException {
+    public ResponseEntity<UrlResponseDTO> shortenUrl(@Valid @ModelAttribute UrlRequestDTO urlRequestDTO) throws UrlAlreadyExistsException {
         Url new_url = urlService.shortenUrl(urlRequestDTO);
-        return ResponseEntity.ok(new_url);
+
+        UrlResponseDTO urlResponseDTO = new UrlResponseDTO(new_url.getLongUrl());
+
+        return ResponseEntity.ok(urlResponseDTO);
     }
 
     @GetMapping("/{short_url}")
-    public ResponseEntity<UrlResponseDTO> getOriginalUrl(@PathVariable String short_url) {
+    public ResponseEntity<UrlResponseDTO> getOriginalUrl(@PathVariable String short_url) throws UrlNotFoundException {
         return ResponseEntity.ok(new UrlResponseDTO(urlService.getOriginalUrl(short_url)));
     }
 }

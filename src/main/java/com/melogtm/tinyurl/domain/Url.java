@@ -60,4 +60,8 @@ public class Url {
     public Integer getCount() {
         return count;
     }
+
+    public void setCount(Integer count) {
+        this.count = count;
+    }
 }
