@@ -21,7 +21,7 @@ public class UrlService {
 
         new_url.setLongUrl(urlRequestDTO.longUrl());
         new_url.setShortUrl(urlRequestDTO.shortUrl());
-        new_url.setCreatedAt(new Date(urlRequestDTO.createdAt()));
+        new_url.setCreatedAt(new Date());
 
         repository.save(new_url);
 
