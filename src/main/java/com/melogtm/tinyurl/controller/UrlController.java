@@ -23,7 +23,8 @@ public class UrlController {
     }
 
     @PostMapping("/shorten")
-    public ResponseEntity<UrlResponseDTO> shortenUrl(@Valid @ModelAttribute UrlRequestDTO urlRequestDTO) throws UrlAlreadyExistsException {
+    public ResponseEntity<UrlResponseDTO> shortenUrl(@Valid @ModelAttribute UrlRequestDTO urlRequestDTO)
+            throws UrlAlreadyExistsException {
         Url new_url = urlService.shortenUrl(urlRequestDTO);
 
         UrlResponseDTO urlResponseDTO = new UrlResponseDTO(new_url.getLongUrl());
@@ -32,7 +33,8 @@ public class UrlController {
     }
 
     @GetMapping("/{short_url}")
-    public ResponseEntity<UrlResponseDTO> getOriginalUrl(@PathVariable String short_url) throws UrlNotFoundException {
+    public ResponseEntity<UrlResponseDTO> getOriginalUrl(@PathVariable String short_url)
+            throws UrlNotFoundException {
         return ResponseEntity.ok(new UrlResponseDTO(urlService.getOriginalUrl(short_url)));
     }
 }
