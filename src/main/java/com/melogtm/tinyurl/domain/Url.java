@@ -1,14 +1,13 @@
 package com.melogtm.tinyurl.domain;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 
+import java.io.Serializable;
 import java.util.Date;
 
 @Table(name = "url")
 @Entity
-public class Url {
+public class Url implements Serializable {
     public Url() {
     }
 
