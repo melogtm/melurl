@@ -7,6 +7,7 @@ import jakarta.validation.constraints.Size;
 public record UrlRequestDTO(
         @NotNull(message = "Shorten URL is required")
         @Size(min = 3, max = 15, message = "Shorten URL must be between 3 and 15 characters")
+        @Pattern(regexp = "^\\S*$", message = "Shorten URL must not contain spaces")
         String shortUrl,
 
         @NotNull(message = "Original URL is required")

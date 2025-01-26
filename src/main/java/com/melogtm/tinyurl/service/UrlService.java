@@ -5,6 +5,7 @@ import com.melogtm.tinyurl.domain.UrlRequestDTO;
 import com.melogtm.tinyurl.exceptions.UrlAlreadyExistsException;
 import com.melogtm.tinyurl.exceptions.UrlNotFoundException;
 import com.melogtm.tinyurl.repository.UrlRepo;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -18,6 +19,7 @@ public class UrlService {
         this.repository = repository;
     }
 
+    @Cacheable(value = "urls", key = "#shortUrl")
     public String getOriginalUrl(String shortUrl) throws UrlNotFoundException {
         String long_url = repository.findOriginalUrl(shortUrl);
 

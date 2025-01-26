@@ -5,9 +5,11 @@ import com.melogtm.tinyurl.exceptions.UrlAlreadyExistsException;
 import com.melogtm.tinyurl.exceptions.UrlNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.context.request.WebRequest;
 
 import java.util.HashMap;
@@ -15,6 +17,12 @@ import java.util.Map;
 
 @ControllerAdvice
 public class ResponseExceptionHandler {
+
+    @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
+    public final ResponseEntity<Object> handleMethodNotAllowed(HttpRequestMethodNotSupportedException e) {
+        ErrrorDetails errorDetails = new ErrrorDetails("Not Supported Request Method", e.getMessage());
+        return new ResponseEntity<>(errorDetails, HttpStatus.METHOD_NOT_ALLOWED);
+    }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public final ResponseEntity<Object> handleInvalidation(MethodArgumentNotValidException e, WebRequest web) {
