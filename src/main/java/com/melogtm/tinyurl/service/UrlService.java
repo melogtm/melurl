@@ -9,6 +9,7 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.Optional;
 
 @Service
 public class UrlService {
@@ -20,10 +21,10 @@ public class UrlService {
     }
 
     @Cacheable(value = "urls", key = "#shortUrl")
-    public String getOriginalUrl(String shortUrl) throws UrlNotFoundException {
-        String long_url = repository.findOriginalUrl(shortUrl);
+    public Optional<String> getOriginalUrl(String shortUrl) throws UrlNotFoundException {
+        Optional<String> long_url = repository.findOriginalUrl(shortUrl);
 
-        if (long_url == null) {
+        if (long_url.isEmpty()) {
             throw new UrlNotFoundException("Short URL not found");
         }
 
@@ -34,10 +35,9 @@ public class UrlService {
 
     public Url shortenUrl(UrlRequestDTO urlRequestDTO) throws UrlAlreadyExistsException {
 
-        String check_url = repository.findOriginalUrl(urlRequestDTO.shortUrl());
-        if (check_url != null) {
-            throw new UrlAlreadyExistsException("Short URL already exists");
-        }
+        Optional<String> check_url = repository.findOriginalUrl(urlRequestDTO.shortUrl());
+
+        if (check_url.isPresent()) throw new UrlAlreadyExistsException("Short URL already exists");
 
         Url new_url = new Url();
 

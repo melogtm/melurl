@@ -1,4 +1,6 @@
 package com.melogtm.tinyurl.domain;
 
-public record UrlResponseDTO(String longUrl) {
+import java.util.Optional;
+
+public record UrlResponseDTO(Optional<String> longUrl) {
 }

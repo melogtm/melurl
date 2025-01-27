@@ -11,6 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @RestController
 @RequestMapping("/url")
 @Validated
@@ -27,7 +29,7 @@ public class UrlController {
             throws UrlAlreadyExistsException {
         Url new_url = urlService.shortenUrl(urlRequestDTO);
 
-        UrlResponseDTO urlResponseDTO = new UrlResponseDTO(new_url.getLongUrl());
+        UrlResponseDTO urlResponseDTO = new UrlResponseDTO(Optional.ofNullable(new_url.getLongUrl()));
 
         return ResponseEntity.ok(urlResponseDTO);
     }
