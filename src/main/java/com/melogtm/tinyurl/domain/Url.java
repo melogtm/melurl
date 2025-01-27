@@ -15,7 +15,7 @@ public class Url implements Serializable {
     @GeneratedValue
     private Integer id;
 
-    @Column(name = "shorten_url")
+    @Column(name = "shorten_url", unique = true)
     private String shortUrl;
 
     @Column(name = "original_url")

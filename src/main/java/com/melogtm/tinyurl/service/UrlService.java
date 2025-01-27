@@ -24,9 +24,7 @@ public class UrlService {
     public Optional<String> getOriginalUrl(String shortUrl) throws UrlNotFoundException {
         Optional<String> long_url = repository.findOriginalUrl(shortUrl);
 
-        if (long_url.isEmpty()) {
-            throw new UrlNotFoundException("Short URL not found");
-        }
+        if (long_url.isEmpty()) throw new UrlNotFoundException("Short URL not found");
 
         repository.incrementCount(shortUrl);
 
@@ -34,7 +32,6 @@ public class UrlService {
     }
 
     public Url shortenUrl(UrlRequestDTO urlRequestDTO) throws UrlAlreadyExistsException {
-
         Optional<String> check_url = repository.findOriginalUrl(urlRequestDTO.shortUrl());
 
         if (check_url.isPresent()) throw new UrlAlreadyExistsException("Short URL already exists");
